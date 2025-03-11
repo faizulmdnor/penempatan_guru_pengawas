@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maklumat Guru Pengawas Peperiksaan</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-3">
+  <h2 class="text-left">Muat naik Data Guru</h2>
+  <p class="text-left">
+    Untuk muat naik data guru sila pastikan fail dalam format <strong>*.csv</strong>.
+    Muat turun fail <strong>maklumat_guru.csv</strong>
+    <a href="{{ url_for('static', filename='Data/maklumat_guru.csv') }}">di sini</a>.
+  </p>
+
+  <!-- Form to submit the request -->
+  <form action="{{ url_for('upload_teachers_data') }}" method="post" enctype="multipart/form-data">
+    <input type="file" name="csv_file" class="form-control mb-2" required>
+    <button type="submit" class="btn btn-success">Muat naik data guru</button>
+  </form>
+
+</div>
+
+<div class="container mt-3">
+  <h2 class="text-left">Detail Data Guru</h2>
+  <p class="text-left">Untuk melihat data guru yang telah dimuatnaik ke pangkalan data.</p>
+
+  <!-- Form to submit the request -->
+  <form action="{{ url_for('guru_details') }}">
+    <button type="submit" class="btn btn-success">Lihat data guru</button>
+  </form>
+</div>
+
+<div class="container mt-3">
+  <h2 class="text-left">Penempatan Guru</h2>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Tahun Peperiksaan</th>
+        <th>Nama Peperiksaan</th>
+        <th>Nombor Kad Pengenalan</th>
+        <th>Nama Guru</th>
+        <th>Email Guru</th>
+        <th>Alamat Kediaman Guru</th>
+        <th>Nama Sekolah Berkhidmat</th>
+        <th>Alamat (Sekolah)</th>
+        <th>Email (Sekolah)</th>
+        <th>Nama Sekolah Peperiksaan</th>
+        <th>Alamat Sekolah Peperiksaan</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for row in data.itertuples() %}
+      <tr>
+        <td>{{ loop.index if loop else index }}</td>
+        <td>{{ row.tahun_peperiksaan }}</td>
+        <td>{{ row.nama_peperiksaan }}</td>
+        <td>{{ row.nom_kp }}</td>
+        <td>{{ row.firstname }} {{ row.lastname }}</td>
+        <td>{{ row.email }}</td>
+        <td>{{ row.alamat_rumah }}</td>
+        <td>{{ row.nama_sekolah }}</td>
+        <td>{{ row.alamat_sekolah }}</td>
+        <td>{{ row.email_sekolah }}</td>
+        <td>{{ row.nama_sekolah_peperiksaan }}</td>
+        <td>{{ row.alamat_sekolah_peperiksaan }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
