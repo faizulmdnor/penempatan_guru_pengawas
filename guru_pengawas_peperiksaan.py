@@ -2,7 +2,7 @@ import os
 import sqlite3
 
 import pandas as pd
-from flask import Flask, render_template, request, flash, url_for, redirect
+from flask import Flask, render_template, request, flash, url_for, redirect, jsonify
 from werkzeug.utils import secure_filename
 
 # Initialize Flask application
@@ -120,9 +120,39 @@ def view_details_guru():
         df_guru = pd.DataFrame()
     finally:
         conn.close()
-
     return df_guru
 
+
+def save_to_peperiksaan(tahun_peperiksaan, nama_peperiksaan):
+    """Save or check if an exam record exists in the database."""
+    try:
+        conn = sqlite3.connect(DB_FILE)
+        cursor = conn.cursor()
+
+        # Check if the exam already exists
+        cursor.execute("SELECT id_exam FROM peperiksaan WHERE tahun_peperiksaan = ? AND nama_peperiksaan = ?",
+                       (tahun_peperiksaan, nama_peperiksaan))
+        existing = cursor.fetchone()
+
+        if existing:
+            return {"exists": True, "message": "Exam record already exists."}
+
+        # Insert new record if not found
+        cursor.execute('''
+            INSERT INTO peperiksaan (tahun_peperiksaan, nama_peperiksaan) VALUES (?, ?)
+        ''', (tahun_peperiksaan, nama_peperiksaan))
+
+        conn.commit()
+        return {"exists": False, "message": "Exam record saved successfully."}
+
+    except sqlite3.Error as e:
+        print(f"Database error: {e}")
+        return {"error": str(e)}
+
+    finally:
+        conn.close()
+
+    return success
 
 @pg_app.route('/')
 def index():
@@ -147,7 +177,6 @@ def guru_details():
         flash(message=f"Database error: {e}", category="danger")
         table_guru = "<p>Ralat pangkalan data.</p>"
     return render_template("details_guru.html", table_guru=table_guru, data_guru=data_guru)
-
 
 @pg_app.route('/upload_teachers_data', methods=['GET', 'POST'])
 def upload_teachers_data():
@@ -181,10 +210,12 @@ def upload_teachers_data():
 
     return render_template('upload_teachers_data.html')
 
-
-
+@pg_app.route("/guru_pengawas", methods=["GET", "POST"])
+def guru_pengawas():
+    if request.method == "POST":
+        return jsonify({"message": "Form submitted successfully!"})
+    return render_template("guru_pengawas.html")
 
 if __name__ == '__main__':
     init_db()
     pg_app.run(debug=True, host="0.0.0.0", port=5020)
-
