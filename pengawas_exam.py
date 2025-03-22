@@ -1,7 +1,6 @@
 import os
 import random
 import sqlite3
-
 import pandas as pd
 from dotenv import load_dotenv
 from flask import Flask, url_for, render_template, flash, request, redirect, jsonify
@@ -541,4 +540,4 @@ def penempatanPengawas():
 
 if __name__ == '__main__':
     init_db()
-    pengawas.run(debug=True, host="0.0.0.0", port=5300)
+    pengawas.run(debug=True, host="0.0.0.0", port=6060)
