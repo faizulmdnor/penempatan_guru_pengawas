@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Peperiksaan</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-2">
+<h2 class="text-center mb-3"><strong>Edit Peperiksaan</strong></h2>
+<div class="row">
+    <div class="col-md-6">
+        <h4><strong>Maklumat Peperiksaan: Semasa.</strong></h4>
+        <form method="POST">
+            <div class="mb-3">
+                <p><strong>Peperiksaan: </strong>{{ examlist.nama_peperiksaan }}</p>
+                <p><strong>Tahun: </strong>{{ examlist.tahun_peperiksaan }}</p>
+                <p><strong>Sesi: </strong>{{ examlist.sesi }}</p>
+                <p><strong>Tarikh mula: </strong>{{ examlist.start_date }}</p>
+                <p><strong>Tarikh tamat: </strong>{{ examlist.end_date }}</p>
+            </div>
+            <h4 class="text-center mb-3"><strong>Padam Peperiksaan.</strong></h4>
+            <form action="{{ url_for('delete_exam', id_exam=examlist.id_exam) }}" method="POST" onsubmit="return confirmDelete()">
+                <button type="submit" class="btn btn-danger w-100">Padan Peperiksaan.</button>
+            </form>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h4><strong>Kemaskini Maklumat Peperiksaan.</strong></h4>
+        <form method="POST">
+            <div class="mb-3">
+                <label class="form-label">Peperiksaan</label>
+                <input type="text" class="form-control" name="nama_peperiksaan" value="{{ exam['nama_peperiksaan'] }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tahun</label>
+                <input type="number" class="form-control" name="tahun_peperiksaan" value="{{ exam['tahun_peperiksaan'] }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Sesi</label>
+                <input type="text" class="form-control" name="sesi" value="{{ exam['sesi'] }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tarikh Mula</label>
+                <input type="date" class="form-control" name="start_date" value="{{ exam['start_date'] }}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tarikh Tamat</label>
+                <input type="date" class="form-control" name="end_date" value="{{ exam['end_date'] }}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="{{ url_for('exam_details') }}" class="btn btn-secondary">Batal</a>
+        </form>
+    </div>
+</div>
+<script>
+    function confirmDelete() {
+        return confirm("Adakah anda pasti ingin memadam peperiksaan ini?");
+    }
+</script>
+</body>
+</html>

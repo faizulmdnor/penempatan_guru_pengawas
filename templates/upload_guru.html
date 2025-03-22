@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muat Naik Guru</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2><strong>Muat Naik Senarai Guru</strong></h2>
+        <p>Sila muat naik data guru dengan menggunakan fail CSV seperti <a href="{{ url_for('static', filename='guru_details.csv') }}">di sini</a> .</p>
+    <form action="{{ url_for('upload_guru') }}" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="file" class="form-label">Pilih Fail CSV</label>
+            <input type="file" class="form-control" name="file" id="file" required>
+        </div>
+        <button type="submit" class="btn btn-success">Muat Naik</button>
+    </form>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }} mt-3">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+
+    <p><a href="{{ url_for('guru_details') }}" class="btn btn-primary mt-3">Lihat Data Guru</a> Untuk melihat data guru yang telah dimuat naik ke pangkalan data.</p>
+</div>
+<div class="container mt-3">
+    <form action="{{ url_for('home') }}">
+        <button type="submit" class="btn btn-success">Home</button>
+        <button type="button" class="btn btn-primary" onclick="history.back();">Back</button>
+    </form>
+</div>
+</body>
+</html>

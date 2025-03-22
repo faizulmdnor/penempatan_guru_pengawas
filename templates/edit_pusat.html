@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Pusat Peperiksaan</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-2">
+<div class="row">
+    <h2 class="text-center mb-3"><strong>Detail Pusat Peperiksaan</strong></h2>
+    <div class="col-md-5">
+        <h2 class="text-center mb-3"><strong>Maklumat semasa</strong></h2>
+
+        <p><strong>Pusat Peperiksaan:</strong> {{ pusat_exam.nama_pusat }}</p>
+        <p><strong>Kod Pusat Peperiksaan:</strong> {{ pusat_exam.kod_pusat }}</p>
+        <p><strong>Bilangan Pengawas:</strong> {{ pusat_exam.bilangan_pengawas }}</p>
+
+        <h2 class="text-center mb-3"><strong>Padam Pusat</strong></h2>
+        <form action="{{ url_for('delete_pusat', id_pusat=pusat_exam.id_pusat) }}" method="POST" onsubmit="return confirmDelete()">
+            <button type="submit" class="btn btn-danger w-100">Padam Pusat Peperiksaan</button>
+        </form>
+
+
+    </div>
+    <div class="col-md-5">
+    <h2 class="text-center mb-3"><strong>Edit Pusat Peperiksaan</strong></h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label class="form-label">Pusat peperiksaan.</label>
+            <select class="form-select" id="nama_pusat" name="nama_pusat" required>
+                {% for row in list_pusat_exam %}
+                    <option value="{{ pusat_exam.nama_pusat }}">
+                        {{ row.nama_sekolah }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Kod Pusat.</label>
+            <input type="text" class="form-control" name="kod_pusat" value="{{ pusat_exam.kod_pusat }}" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Bilangan Pengawas.</label>
+            <input type="number" class="form-control" name="bilangan_pengawas" value="{{ pusat_exam.bilangan_pengawas }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Simpan</button>
+        <a href="{{ url_for('add_pusat') }}" class="btn btn-secondary">Batal</a>
+    </form>
+    </div>
+
+
+
+</div>
+<script>
+    function confirmDelete() {
+        return confirm("Adakah anda pasti ingin memadam pusat peperiksaan ini?");
+    }
+</script>
+
+</body>
+</html>

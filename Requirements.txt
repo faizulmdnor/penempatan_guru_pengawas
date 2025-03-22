@@ -1,0 +1,4 @@
+Flask
+Werkzeug
+pandas
+sqlite3  # Usually not needed as it's built-in with Python

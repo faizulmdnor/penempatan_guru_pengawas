@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maklumat Guru Pengawas Peperiksaan</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2 class="text-primary">Sistem Penempatan Guru Pengawas Peperiksaan</h2>
+    <p>
+        Sistem ini dibangunkan untuk memudahkan proses penempatan guru pengawas peperiksaan secara sistematik dan digital.
+        Ia membolehkan pengurusan guru pengawas dilakukan dengan lebih cekap, sekaligus mengurangkan penggunaan kertas dan
+        memastikan komunikasi yang lebih pantas.
+    </p>
+
+    <h4 class="mt-4">Fungsi Utama</h4>
+    <ul>
+        <li><strong>Muat Naik Maklumat Guru.</strong>
+            <ul>
+                <li>Pengguna boleh memuat naik fail CSV yang mengandungi maklumat guru seperti nama, nombor kad pengenalan, alamat, dan sekolah asal.</li>
+                <li>Data akan disimpan dalam pangkalan data sistem untuk rujukan dan pengurusan.</li>
+            </ul>
+        </li>
+        <li><strong>Penempatan Guru Pengawas.</strong>
+            <ul>
+                <li>Pengurus sistem akan menetapkan guru pengawas ke pusat peperiksaan berdasarkan daerah yang sesuai.</li>
+                <li>Proses pemadanan sekolah dibuat secara automatik untuk memastikan guru ditempatkan di pusat peperiksaan yang berdekatan.</li>
+            </ul>
+        </li>
+        <li><strong>Penghantaran Surat Pelantikan.</strong>
+            <ul>
+                <li>Setelah penempatan dibuat, sistem akan menghantar surat pelantikan secara automatik melalui e-mel kepada:</li>
+                <ul>
+                    <li>Guru pengawas</li>
+                    <li>Pengetua sekolah asal</li>
+                    <li>Pusat peperiksaan</li>
+                </ul>
+                <li>Ini memastikan semua pihak menerima makluman dengan segera tanpa perlu mencetak surat secara manual.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h4 class="mt-4">Kelebihan Sistem Ini.</h4>
+    <ul>
+        <li>✅ <strong>Mengurangkan Penggunaan Kertas</strong> – Tiada lagi surat pelantikan fizikal, semuanya dihantar secara digital.</li>
+        <li>✅ <strong>Proses Penempatan Lebih Pantas</strong> – Sistem automatik membantu mengagihkan guru dengan lebih cekap.</li>
+        <li>✅ <strong>Penghantaran Surat Secara Segera</strong> – Semua surat pelantikan dihantar melalui e-mel, memastikan komunikasi lebih cepat dan teratur.</li>
+        <li>✅ <strong>Mengelakkan Kesilapan Manual</strong> – Mengurangkan risiko kesilapan dalam pengagihan guru pengawas.</li>
+        <li>✅ <strong>Rekod Tersimpan Secara Digital</strong> – Semua data tersimpan dalam sistem dan boleh diakses pada bila-bila masa untuk semakan dan laporan.</li>
+    </ul>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-primary">Data Guru.</h2>
+    <p>Untuk melihat data guru yang telah dimuat naik ke pangkalan data.</p>
+
+    <form action="{{ url_for('guru_details') }}">
+        <button type="submit" class="btn btn-success">Lihat Data Guru</button>
+    </form>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-primary">Lihat Peperiksaan.</h2>
+    <p>Lihat maklumat peperiksaan yang telah dimuat naik ke pangkalan data.</p>
+
+    <form action="{{ url_for('exam_details') }}">
+        <button type="submit" class="btn btn-success">Peperiksaan</button>
+    </form>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-primary">Pusat Peperiksaan.</h2>
+    <p>Menetapkan pusat peperiksaan dan bilangan pengawas bagi setiap pusat peperiksaan.</p>
+
+    <form action="{{ url_for('add_pusat') }}">
+        <button type="submit" class="btn btn-success">Tambah Pusat Peperiksaan.</button>
+    </form>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-primary">Agihan Pengawas ke Pusat Peperiksaan.</h2>
+    <p>Menetapkan pengawas ke pusat peperiksaan mengikut bilangan pengawas yang diperlukan.</p>
+
+    <form action="{{ url_for('penempatanPengawas') }}">
+        <button type="submit" class="btn btn-success">Menempatkan Pengawas ke Pusat Peperiksaan.</button>
+    </form>
+</div>
+
+</body>
+</html>

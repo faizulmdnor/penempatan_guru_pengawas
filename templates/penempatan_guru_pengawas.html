@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penempatan Guru Pengawas</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h2 class="text-primary">Penempatan guru pengawas ke pusat peperiksaan.</h2>
+    <p>Menempatkan guru pengawas ke pusat peperiksaan dengan bilangan pengawas bagi setiap pusat peperiksaan.</p>
+</div>
+
+<div class="container mt-5">
+    <h4 class="text-primary">Peperiksaan.</h4>
+    <form action="{{ url_for('penempatanPengawas') }}" method="POST" enctype="multipart/form-data">
+        <label for nama_exam class="form-label"><strong>Pilih peperiksaan.</strong></label>
+        <select class="form-select" id="id_exam" name="id_exam" required>
+            {% for row in list_exam %}
+            <option value="{{ row.id_exam }}" data-nama_peperiksaan="{{ row.nama_peperiksaan }}" data-tahun_peperiksaan="{{ row.tahun_peperiksaan }}" data-sesi="{{ row.sesi }}" data-start_date="{{ row.start_date }}" data-end_date="{{ row.end_date }}">
+                {{ row.nama_peperiksaan }} - {{ row.sesi }}; Tarikh: {{ row.start_date }} - {{ row.end_date }}
+            </option>
+            {% endfor %}
+        </select>
+        <div class="mt-3">
+            <form action="{{ url_for('penempatanPengawas') }}"></form>
+            <button type="submit" class="btn btn-success">Menetapkan Peperiksaan.</button>
+        </div>
+    </form>
+</div>
+
+<!--Pilih peperiksaan-->
+<!--Randomize guru into pusat peperiksaan-->
+<!--Display randomize results into temporary Dataframe so that user can edit-->
+<!--Save Dataframe into database-->
+<!--Generate surat lantikan in pdf format. email to guru, pengetuan, and pusat peperiksaan (sekolah)-->
+
+<div class="container mt-3">
+    <h2 class="text-left"><strong>Maklumat Pengawas, Peperiksaan dan Pusat Peperiksaan.</strong></h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>id_pusat</th>
+            <th>Nama Pusat Pepriksaan.</th>
+            <th>Kod Pusat.</th>
+            <th>Bilangan Pengawas.</th>
+            <th>id_exam</th>
+            <th>Peperiksaan.</th>
+            <th>Tahun.</th>
+            <th>Sesi.</th>
+            <th>Tarikh Mula.</th>
+            <th>Tarikh Tamat.</th>
+            <th>id_guru</th>
+            <th>Kad Pengenalan.</th>
+            <th>Nama.</th>
+            <th>Email.</th>
+            <th>Nama Sekolah.</th>
+            <th>Email Sekolah.</th>
+            <th>Pengetua.</th>
+            <th>Email Pengetua.</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in pengawas.itertuples() %}
+        <tr>
+            <td>{{ loop.index if loop else index }}</td>
+            <td>{{ row.id_pusat }}</td>
+            <td>{{ row.nama_pusat }}</td>
+            <td>{{ row.kod_pusat }}</td>
+            <td>{{ row.bilangan_pengawas }}</td>
+            <td>{{ row.id_exam }}</td>
+            <td>{{ row.nama_peperiksaan }}</td>
+            <td>{{ row.tahun_peperiksaan }}</td>
+            <td>{{ row.sesi }}</td>
+            <td>{{ row.start_date }}</td>
+            <td>{{ row.end_date }}</td>
+            <td>{{ row.id_guru }}</td>
+            <td>{{ row.nom_kp }}</td>
+            <td>{{ row.Nama }}</td>
+            <td>{{ row.email }}</td>
+            <td>{{ row.nama_sekolah }}</td>
+            <td>{{ row.email_sekolah }}</td>
+            <td>{{ row.nama_pengetua }}</td>
+            <td>{{ row.email_pengetua }}</td>
+            <td>
+
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="container mt-3">
+    <form action="{{ url_for('home') }}">
+        <button type="submit" class="btn btn-success">Home</button>
+        <button type="button" class="btn btn-primary" onclick="history.back();">Back</button>
+    </form>
+</div>
+
+</body>
+</html>
